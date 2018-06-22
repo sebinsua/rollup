@@ -90,7 +90,7 @@ export interface PluginCache {
 
 export interface PluginContext {
 	// TODO deprecate:
-	watcher: Watcher;
+	watcher: EventEmitter;
 	addWatchFile: (id: string) => void;
 	cache: PluginCache;
 	resolveId: ResolveIdHook;
@@ -406,8 +406,6 @@ export interface RollupOptions extends InputOptions {
 
 export function rollup(options: RollupOptions): Promise<RollupBuild>;
 
-export interface Watcher extends EventEmitter {}
-
 // chokidar watch options
 export interface WatchOptions {
 	persistent?: boolean;
@@ -444,4 +442,8 @@ export interface RollupWatchOptions extends InputOptions {
 	watch?: WatcherOptions;
 }
 
-export function watch(configs: RollupWatchOptions[]): Watcher;
+export interface RollupWatcher extends EventEmitter {
+	close(): void;
+}
+
+export function watch(configs: RollupWatchOptions[]): RollupWatcher;

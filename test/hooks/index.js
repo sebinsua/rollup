@@ -252,7 +252,6 @@ describe('hooks', () => {
 		return rollup
 			.rollup({
 				input: 'input',
-				experimentalCodeSplitting: true,
 				plugins: [
 					loader({ input: '' }),
 					{
@@ -278,16 +277,15 @@ describe('hooks', () => {
 					.rollup({
 						cache,
 						input: 'input',
-						experimentalCodeSplitting: true,
 						plugins: [
-							loader({ input: '' }),
-							{
-								transform () {
-									assert.fail('Should cache transform');
-								}
+						loader({ input: '' }),
+						{
+							transform() {
+								assert.fail('Should cache transform');
 							}
-						]
-					});
+						}
+					]
+				});
 			})
 			.then(bundle => {
 				return bundle.generate({ format: 'es' });
@@ -307,7 +305,6 @@ describe('hooks', () => {
 		return rollup
 			.rollup({
 				input: 'input',
-				experimentalCodeSplitting: true,
 				plugins: [
 					loader({ input: '' }),
 					{
@@ -336,18 +333,17 @@ describe('hooks', () => {
 					.rollup({
 						cache,
 						input: 'input',
-						experimentalCodeSplitting: true,
 						plugins: [
-							loader({ input: '' }),
-							{
-								name: 'x',
-								transform () {
-									runs++;
-									return `alert('hello world')`;
-								}
+						loader({ input: '' }),
+						{
+							name: 'x',
+							transform() {
+								runs++;
+								return `alert('hello world')`;
 							}
-						]
-					});
+						}
+					]
+				});
 			})
 			.then(bundle => {
 				return bundle.generate({ format: 'es' });
@@ -469,7 +465,6 @@ module.exports = input;
 		return rollup
 			.rollup({
 				input: 'input',
-				experimentalCodeSplitting: true,
 				plugins: [
 					loader({ input: `alert('hello')` }),
 					{
