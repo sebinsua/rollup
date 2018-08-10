@@ -107,7 +107,7 @@ describe('rollup.watch', () => {
 		});
 
 		it('passes file events to the watchChange plugin hook', () => {
-			let watchChangeId, watchChangeCnt = 0;
+			let watchChangeId; let watchChangeCnt = 0;
 			return sander
 				.copydir('test/watch/samples/basic')
 				.to('test/_tmp/input')
