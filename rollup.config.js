@@ -77,7 +77,7 @@ export default [
 			resolve(),
 			commonjs()
 		],
-		external: ['fs', 'path', 'events', 'module', 'util', 'crypto'],
+		external: ['crypto', 'events', 'fs', 'module', 'path', 'util'],
 		output: [
 			{ file: 'dist/rollup.js', format: 'cjs', sourcemap: true, banner },
 			{ file: 'dist/rollup.es.js', format: 'es', sourcemap: true, banner }
@@ -130,7 +130,7 @@ export default [
 			}),
 			resolve()
 		],
-		external: ['fs', 'path', 'module', 'events', 'rollup', 'assert', 'os', 'util'],
+		external: ['assert', 'crypto', 'events', 'fs', 'module', 'os', 'path', 'rollup', 'util'],
 		output: {
 			file: 'bin/rollup',
 			format: 'cjs',
