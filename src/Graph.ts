@@ -2,6 +2,7 @@ import * as acorn from 'acorn';
 import injectDynamicImportPlugin from 'acorn-dynamic-import/lib/inject';
 import injectImportMeta from 'acorn-import-meta/inject';
 import { Program } from 'estree';
+import { EventEmitter } from 'events';
 import GlobalScope from './ast/scopes/GlobalScope';
 import { EntityPathTracker } from './ast/utils/EntityPathTracker';
 import GlobalVariable from './ast/variables/GlobalVariable';
@@ -19,8 +20,7 @@ import {
 	SerializablePluginCache,
 	SourceDescription,
 	TreeshakingOptions,
-	WarningHandler,
-	Watcher
+	WarningHandler
 } from './rollup/types';
 import { finaliseAsset } from './utils/assetHooks';
 import {
@@ -83,7 +83,7 @@ export default class Graph {
 	// deprecated
 	treeshake: boolean;
 
-	constructor(options: InputOptions, watcher?: Watcher) {
+	constructor(options: InputOptions, watcher?: EventEmitter) {
 		this.curChunkIndex = 0;
 		this.deoptimizationTracker = new EntityPathTracker();
 		this.cachedModules = new Map();
@@ -137,7 +137,8 @@ export default class Graph {
 
 		this.pluginDriver = createPluginDriver(this, options, this.pluginCache, watcher);
 
-		if (watcher) watcher.on('change', id => this.pluginDriver.hookSeqSync('watchChange', [id]));
+		if (watcher)
+			watcher.on('change', (id: string) => this.pluginDriver.hookSeqSync('watchChange', [id]));
 
 		if (typeof options.external === 'function') {
 			this.isExternal = options.external;

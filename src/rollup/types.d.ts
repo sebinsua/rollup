@@ -89,8 +89,8 @@ export interface PluginCache {
 }
 
 export interface PluginContext {
-	// TODO deprecate:
-	watcher: Watcher;
+	/** @deprecated */
+	watcher: EventEmitter;
 	addWatchFile: (id: string) => void;
 	cache: PluginCache;
 	resolveId: ResolveIdHook;
@@ -174,19 +174,20 @@ export interface Plugin {
 	load?: LoadHook;
 	resolveId?: ResolveIdHook;
 	transform?: TransformHook;
-	// TODO: deprecate
+	/** @deprecated */
 	transformBundle?: TransformChunkHook;
+	/** @deprecated */
 	transformChunk?: TransformChunkHook;
 	renderChunk?: RenderChunkHook;
 	buildStart?: (this: PluginContext, options: InputOptions) => Promise<void> | void;
 	buildEnd?: (this: PluginContext, err?: any) => Promise<void> | void;
-	// TODO: deprecate
+	/** @deprecated */
 	ongenerate?: (
 		this: PluginContext,
 		options: OutputOptions,
 		chunk: OutputChunk
 	) => void | Promise<void>;
-	// TODO: deprecate
+	/** @deprecated */
 	onwrite?: (
 		this: PluginContext,
 		options: OutputOptions,
@@ -223,6 +224,7 @@ export interface InputOptions {
 
 	onwarn?: WarningHandler;
 	cache?: false | RollupCache;
+	perf?: boolean;
 	experimentalCacheExpiry?: number;
 
 	acorn?: {};
@@ -241,17 +243,8 @@ export interface InputOptions {
 	chunkGroupingSize?: number;
 	shimMissingExports?: boolean;
 
-	// undocumented?
-	pureExternalModules?: boolean;
-	preferConst?: boolean;
-	perf?: boolean;
-
 	/** @deprecated */
-	entry?: string;
-	transform?: TransformHook;
-	load?: LoadHook;
-	resolveId?: ResolveIdHook;
-	resolveExternal?: any;
+	preferConst?: boolean;
 }
 
 export type ModuleFormat = 'amd' | 'cjs' | 'system' | 'es' | 'esm' | 'iife' | 'umd';
@@ -294,11 +287,13 @@ export interface OutputOptions {
 	namespaceToStringTag?: boolean;
 	compact?: boolean;
 
-	// undocumented?
+	/** @deprecated */
 	noConflict?: boolean;
 
 	// deprecated
+	/** @deprecated */
 	dest?: string;
+	/** @deprecated */
 	moduleId?: string;
 }
 
@@ -419,8 +414,6 @@ export interface RollupDirOptions extends InputOptions {
 
 export function rollup(options: RollupFileOptions): Promise<RollupSingleFileBuild>;
 export function rollup(options: RollupDirOptions): Promise<RollupBuild>;
-
-export interface Watcher extends EventEmitter {}
 
 // chokidar watch options
 export interface WatchOptions {
