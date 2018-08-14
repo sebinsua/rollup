@@ -287,14 +287,7 @@ export interface OutputOptions {
 	namespaceToStringTag?: boolean;
 	compact?: boolean;
 
-	/** @deprecated */
 	noConflict?: boolean;
-
-	// deprecated
-	/** @deprecated */
-	dest?: string;
-	/** @deprecated */
-	moduleId?: string;
 }
 
 export interface OutputOptionsFile extends OutputOptions {
