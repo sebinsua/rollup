@@ -752,15 +752,15 @@ Try defining "${chunkName}" first in the manualChunks definitions of the Rollup 
 						module.dynamicImportResolutions[index] = { alias, resolution: replacement };
 					} else if (this.isExternal(replacement, module.id, true)) {
 						let externalModule;
-						if (!this.moduleById.has(replacement)) {
+						if (!this.moduleById.has(dynamicImportExpression)) {
 							externalModule = new ExternalModule({
 								graph: this,
-								id: replacement
+								id: dynamicImportExpression
 							});
 							this.externalModules.push(externalModule);
-							this.moduleById.set(replacement, module);
+							this.moduleById.set(dynamicImportExpression, module);
 						} else {
-							externalModule = <ExternalModule>this.moduleById.get(replacement);
+							externalModule = <ExternalModule>this.moduleById.get(dynamicImportExpression);
 						}
 						module.dynamicImportResolutions[index] = { alias, resolution: externalModule };
 						externalModule.exportsNamespace = true;
